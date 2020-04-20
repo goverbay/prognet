@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('/assets/admin/assets/css/style.css') }}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('/assets/admin/assets/images/favicon.png') }}" />
+    
 </head>
 <body>
     <div class="container-scroller">
@@ -176,7 +177,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/dompet">
+              <a class="nav-link" href="/admin/home">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
@@ -195,17 +196,18 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/icons/mdi.html">
-                <span class="menu-title">Icons</span>
-                <i class="mdi mdi-contacts menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="pages/forms/basic_elements.html">
-                <span class="menu-title">Forms</span>
+              <a class="nav-link" href="/admin/produk">
+                <span class="menu-title">Produk</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/kategori_produk">
+                <span class="menu-title">Kategori Produk</span>
+                <i class="mdi mdi-contacts menu-icon"></i>
+              </a>
+            </li>
+            
             <li class="nav-item">
               <a class="nav-link" href="pages/charts/chartjs.html">
                 <span class="menu-title">Charts</span>

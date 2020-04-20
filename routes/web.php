@@ -30,3 +30,31 @@ Route::get('/admin/home', 'Admin\AdminController@index')->middleware('admin');
 Route::get('/register/admin', 'Auth\RegisterController@showAdminRegister')->middleware('admin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 Route::get('/admin/edit-profile','Admin\AdminController@editProfile');
+
+Route::get('/admin/kategori_produk', 'Admin\KategoriController@index');
+Route::get('/admin/kategori_produk/tambah', 'Admin\KategoriController@tambah_data');
+Route::post('/admin/kategori_produk/store', 'Admin\KategoriController@store');
+Route::get('/admin/kategori_produk/edit/{id}', 'Admin\KategoriController@edit');
+Route::post('/admin/kategori_produk/update', 'Admin\KategoriController@update');
+Route::get('/admin/kategori_produk/hapus/{id}', 'Admin\KategoriController@hapus');
+
+Route::get('/admin/produk', 'Admin\ProdukController@index');
+Route::get('/admin/produk/tambah', 'Admin\ProdukController@tambah');
+Route::post('/admin/produk/store', 'Admin\ProdukController@store');
+Route::get('/admin/produk/show/{id}', 'Admin\ProdukController@show');
+Route::get('/admin/produk/tambah_kategori/{id}', 'Admin\ProdukController@tambah_kategori');
+Route::post('/admin/produk/tambah_kategori', 'Admin\ProdukController@store_kategori');
+Route::get('/admin/produk/kategori_produk/hapus/{id}', 'Admin\ProdukController@hapus_kategori');
+Route::get('/admin/produk/edit/{id}', 'Admin\ProdukController@edit');
+Route::post('/admin/produk/update', 'Admin\ProdukController@update');
+Route::get('/admin/produk/tambah_gambar/{id}', 'Admin\ProdukController@tambah_gambar');
+Route::post('/admin/produk/tambah_gambar', 'Admin\ProdukController@store_gambar');
+Route::get('/admin/produk/gambar/hapus/{id}', 'Admin\ProdukController@hapus_gambar');
+Route::get('/admin/produk/hapus/{id}', 'Admin\ProdukController@hapus');
+Route::get('/admin/produk/tambah_diskon/{id}', 'Admin\DiscountController@tambah');
+Route::post('/admin/produk/tambah_diskon', 'Admin\DiscountController@store');
+Route::get('/admin/produk/diskon/edit/{id}', 'Admin\DiscountController@edit');
+Route::post('/admin/produk/diskon/edit', 'Admin\DiscountController@update');
+Route::get('/admin/produk/diskon/hapus/{id}', 'Admin\DiscountController@hapus');
+
+
