@@ -27,7 +27,7 @@
                         <th>Kategori</th>
                         <th>Opsi</th>
                     </tr>
-                    @if (isset($produks))
+                    @if ($produks->count())
                         @foreach ($produks as $produk)
                             <tr>
                                 {{-- {{dd($pegawai)}} --}}

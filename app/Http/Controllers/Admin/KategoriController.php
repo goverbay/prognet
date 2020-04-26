@@ -19,6 +19,14 @@ class KategoriController extends Controller
     }
 
     public function store(Request $request){
+        $messages = [
+            'required' => ':attribute tidak boleh kosong',
+        ];
+
+        $this->validate($request,[
+            'category_name' => 'required',
+        ],$messages);
+
         $kategori = new Kategori;
 
         $kategori->category_name = $request->category_name;
@@ -34,6 +42,14 @@ class KategoriController extends Controller
     }
 
     public function update(Request $request){
+        $messages = [
+            'required' => ':attribute tidak boleh kosong',
+        ];
+
+        $this->validate($request,[
+            'category_name' => 'required',
+        ],$messages);
+        
         $id = $request->id;
         $kategori = Kategori::find($id);
 

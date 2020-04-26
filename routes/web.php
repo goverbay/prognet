@@ -38,6 +38,14 @@ Route::get('/admin/kategori_produk/edit/{id}', 'Admin\KategoriController@edit');
 Route::post('/admin/kategori_produk/update', 'Admin\KategoriController@update');
 Route::get('/admin/kategori_produk/hapus/{id}', 'Admin\KategoriController@hapus');
 
+Route::get('/admin/kurir', 'Admin\KurirController@index');
+Route::get('/admin/kurir/tambah', 'Admin\KurirController@tambah_data');
+Route::post('/admin/kurir/store', 'Admin\KurirController@store');
+Route::get('/admin/kurir/edit/{id}', 'Admin\KurirController@edit');
+Route::post('/admin/kurir/update', 'Admin\KurirController@update');
+Route::get('/admin/kurir/hapus/{id}', 'Admin\KurirController@hapus');
+
+
 Route::get('/admin/produk', 'Admin\ProdukController@index');
 Route::get('/admin/produk/tambah', 'Admin\ProdukController@tambah');
 Route::post('/admin/produk/store', 'Admin\ProdukController@store');
@@ -56,5 +64,5 @@ Route::post('/admin/produk/tambah_diskon', 'Admin\DiscountController@store');
 Route::get('/admin/produk/diskon/edit/{id}', 'Admin\DiscountController@edit');
 Route::post('/admin/produk/diskon/edit', 'Admin\DiscountController@update');
 Route::get('/admin/produk/diskon/hapus/{id}', 'Admin\DiscountController@hapus');
-
+Route::get('/admin/produk/review/hapus/{id}', 'Admin\ProdukController@hapus_review');
 

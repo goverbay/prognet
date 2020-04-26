@@ -209,8 +209,8 @@
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" href="pages/charts/chartjs.html">
-                <span class="menu-title">Charts</span>
+              <a class="nav-link" href="/admin/kurir">
+                <span class="menu-title">Kurir</span>
                 <i class="mdi mdi-chart-bar menu-icon"></i>
               </a>
             </li>
@@ -273,20 +273,5 @@
       <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="{{ asset('/assets/admin/assets/vendors/js/vendor.bundle.base.js') }}"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="{{ asset('/assets/admin/assets/vendors/chart.js/Chart.min.js') }}"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{{ asset('/assets/admin/assets/js/off-canvas.js') }}"></script>
-    <script src="{{ asset('/assets/admin/assets/js/hoverable-collapse.js') }}"></script>
-    <script src="{{ asset('/assets/admin/assets/js/misc.js') }}"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="{{ asset('/assets/admin/assets/js/dashboard.js') }}"></script>
-    <script src="{{ asset('/assets/admin/assets/js/todolist.js') }}"></script>
-    <!-- End custom js for this page -->
 </body>
 </html>

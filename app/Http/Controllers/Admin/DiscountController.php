@@ -14,6 +14,19 @@ class DiscountController extends Controller
     }
 
     public function store(Request $request){
+        $messages = [
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute tidak boleh selain bilangan',
+            'min' => ':attribute tidak boleh kurang dari :min',
+            'max' => ':attribute tidak boleh melebihi dari :max',
+        ];
+
+        $this->validate($request,[
+            'percentage' => 'required|numeric|min:1|max:100',
+            'start' => 'required|date|after:tomorrow',
+            'end' => 'required|date|after:start',
+        ],$messages);
+
         $diskon = new discount;
 
         $diskon->id_product = $request->id_product;
@@ -32,6 +45,20 @@ class DiscountController extends Controller
     }
 
     public function update(Request $request){
+        $messages = [
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute tidak boleh selain bilangan',
+            'min' => ':attribute tidak boleh kurang dari :min',
+            'max' => ':attribute tidak boleh melebihi dari :max',
+        ];
+
+        $this->validate($request,[
+            'percentage' => 'required|numeric|min:1|max:100',
+            'start' => 'required|date|after:tomorrow',
+            'end' => 'required|date|after:start',
+        ],$messages);
+
+
         $diskon = discount::find($request->id);
 
         $diskon->id_product = $request->id_product;

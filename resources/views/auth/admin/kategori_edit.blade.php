@@ -6,6 +6,15 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form class="forms-sample" action="/admin/kategori_produk/update" method="POST">
                 @csrf
               <div class="form-group row">

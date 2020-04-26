@@ -27,4 +27,12 @@ class Produk extends Model
     public function discount(){
         return $this->hasMany('App\discount', 'id_product', 'id');
     }
+
+    public function product_review(){
+        return $this->hasMany('App\product_review', 'product_id', 'id');
+    }
+
+    public function user(){
+        return $this->hasMany('App\User', 'product_review', 'product_id', 'user_id')->withPivot('id');
+    }
 }

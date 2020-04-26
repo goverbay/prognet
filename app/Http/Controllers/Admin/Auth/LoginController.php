@@ -54,7 +54,7 @@ class LoginController extends Controller
     public function adminLogin(Request $request){
         $this->validate($request, [
             'username'   => 'required',
-            'password' => 'required|min:6'
+            'password' => 'required'
         ]);
 
         if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password], $request->get('remember'))) {

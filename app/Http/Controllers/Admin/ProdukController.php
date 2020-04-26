@@ -8,6 +8,7 @@ use App\Produk;
 use App\Kategori;
 use App\product_category_detail as pcd;
 use App\product_image as pi;
+use App\product_review as review;
 
 class ProdukController extends Controller
 {
@@ -18,10 +19,27 @@ class ProdukController extends Controller
     }
 
     public function tambah(){
-        return view('auth.admin.produk_tambah');
+        $kategori = Kategori::all();
+        return view('auth.admin.produk_tambah', ['kategori' => $kategori]);
     }
 
     public function store(Request $request){
+        $messages = [
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute tidak boleh selain bilangan',
+            'min' => ':attribute tidak boleh kurang dari :min',
+            'max' => ':attribute tidak boleh melebihi dari :max',
+        ];
+
+        $this->validate($request,[
+            'product_name' => 'required',
+            'price' => 'required|numeric|min:0',
+            'description' => 'required',
+            'product_rate' => 'required|numeric|min:0|max:5',
+            'stock' => 'required|numeric|min:1',
+            'weight' => 'required|numeric|min:1',
+        ],$messages);
+
         $produk = new Produk;
 
         $produk->product_name = $request->product_name;
@@ -32,9 +50,31 @@ class ProdukController extends Controller
         $produk->weight = $request->weight;
         $produk->save();
 
-        $id = Produk::max('id');
+        if(!is_null($request->kategori)){
+            foreach($request->kategori as $item){
+                $detail_kategori = new pcd;
+                $detail_kategori->product_id = $produk->id;
+                $detail_kategori->category_id = $item;
+                $detail_kategori->save();
+            }
+        }
 
-        return redirect('/admin/produk/show/'.$id.'#kategori');
+        if(!is_null($request->file)){
+            foreach($request->file('file') as $item){
+                $file = $item;
+                $path = 'produk_image';
+                $nama_file = time()."_".$file->getClientOriginalName();
+        
+                $file->move($path,$nama_file);
+        
+                $gambar = new pi;
+        
+                $gambar->product_id = $produk->id;
+                $gambar->image_name = $nama_file;
+                $gambar->save();      
+            }
+        }
+        return redirect('/admin/produk');
     }
 
     public function edit($id){
@@ -44,6 +84,22 @@ class ProdukController extends Controller
     }
 
     public function update(Request $request){
+        $messages = [
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute tidak boleh selain bilangan',
+            'min' => ':attribute tidak boleh kurang dari :min',
+            'max' => ':attribute tidak boleh melebihi dari :max',
+        ];
+
+        $this->validate($request,[
+            'product_name' => 'required',
+            'price' => 'required|numeric|min:0',
+            'description' => 'required',
+            'product_rate' => 'required|numeric|min:0|max:5',
+            'stock' => 'required|numeric|min:1',
+            'weight' => 'required|numeric|min:1',
+        ],$messages);
+
         $produk = Produk::find($request->id);
 
         $produk->product_name = $request->product_name;
@@ -66,9 +122,19 @@ class ProdukController extends Controller
     }
 
     public function show($id){
-        $produk = Produk::with('product_image','product_category_detail','category','discount')->where('id','=',$id)->first();
-
-        return view('auth.admin.produk_show',['produk' => $produk]);
+        $produk = Produk::with('product_image','product_category_detail','category','discount', 'product_review')->where('id','=',$id)->first();
+        if($produk->discount->count()){
+            
+            $diskon = $produk->discount->sortByDesc('id');
+            foreach($diskon as $item){
+                $tgl_diskon = $item;
+                break;
+            }
+        }else{
+            $tgl_diskon = null;
+        }
+        
+        return view('auth.admin.produk_show',['produk' => $produk, 'tgl_diskon' => $tgl_diskon]);
     }
 
     public function tambah_kategori($id){
@@ -106,7 +172,7 @@ class ProdukController extends Controller
 
     public function store_gambar(Request $request){
         $this->validate($request, [
-            'file' => 'required',
+            'file' => 'required|mimes:jpg,jpeg,png',
         ]);
 
         // dd($request->file('file'));
@@ -133,5 +199,13 @@ class ProdukController extends Controller
         $gambar->delete();
 
         return redirect('/admin/produk/show/'.$product_id.'#gambar');
+    }
+
+    public function hapus_review($id){
+        $review = review::find($id);
+        $product_id = $review->product_id;
+        $review->delete();
+
+        return redirect('/admin/produk/show/'.$product_id.'#review');
     }
 }
