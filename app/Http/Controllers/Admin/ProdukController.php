@@ -9,6 +9,7 @@ use App\Kategori;
 use App\product_category_detail as pcd;
 use App\product_image as pi;
 use App\product_review as review;
+use App\response;
 
 class ProdukController extends Controller
 {
@@ -35,7 +36,6 @@ class ProdukController extends Controller
             'product_name' => 'required',
             'price' => 'required|numeric|min:0',
             'description' => 'required',
-            'product_rate' => 'required|numeric|min:0|max:5',
             'stock' => 'required|numeric|min:1',
             'weight' => 'required|numeric|min:1',
         ],$messages);
@@ -45,7 +45,7 @@ class ProdukController extends Controller
         $produk->product_name = $request->product_name;
         $produk->price = $request->price;
         $produk->description = $request->description;
-        $produk->product_rate = $request->product_rate;
+        $produk->product_rate = 0;
         $produk->stock = $request->stock;
         $produk->weight = $request->weight;
         $produk->save();
@@ -133,8 +133,10 @@ class ProdukController extends Controller
         }else{
             $tgl_diskon = null;
         }
+
+        $respon = response::all();
         
-        return view('auth.admin.produk_show',['produk' => $produk, 'tgl_diskon' => $tgl_diskon]);
+        return view('auth.admin.produk_show',['produk' => $produk, 'tgl_diskon' => $tgl_diskon, 'respon' => $respon]);
     }
 
     public function tambah_kategori($id){
@@ -203,8 +205,28 @@ class ProdukController extends Controller
 
     public function hapus_review($id){
         $review = review::find($id);
+        $produk_id = $review->product_id;
         $product_id = $review->product_id;
         $review->delete();
+
+        $reviews = review::where('product_id', '=', $product_id)->get();
+        $meanRate = 0;
+        $count = $reviews->count();
+
+        foreach($reviews as $item){
+            $meanRate = $meanRate+$item->rate;
+        }
+        if($count == 0){
+            $meanRate = 0;
+        }else{
+            $meanRate = $meanRate / $count;
+        }
+
+        $produk = Produk::find($product_id);
+        $produk->product_rate = $meanRate;
+        $produk->save();
+
+
 
         return redirect('/admin/produk/show/'.$product_id.'#review');
     }

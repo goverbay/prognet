@@ -36,12 +36,6 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Rating Produk</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="product_rate" required value="{{old('product_rate')}}">
-                </div>
-              </div>
-              <div class="form-group row">
                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Stock Produk</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" name="stock" required value="{{old('stock')}}">

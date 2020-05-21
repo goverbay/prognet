@@ -17,6 +17,6 @@ class Kategori extends Model
     }
 
     public function product(){
-        return $this->belongsToMany('App\Produk','product_category_details','product_id', 'category_id')->withPivot('id');
+        return $this->belongsToMany('App\Produk','product_category_details','category_id', 'product_id')->withPivot('id');
     }
 }

@@ -38,6 +38,14 @@ class User extends Authenticatable
     ];
 
     public function product(){
-        return $this->hasMany('product_review', 'user_id', 'product_id')->withPivot('id');
+        return $this->belongsToMany('App\Produk', 'product_reviews', 'user_id', 'product_id')->withPivot('id');
+    }
+
+    public function cart(){
+        return $this->hasMany('App\cart', 'user_id', 'id');
+    }
+
+    public function product_cart(){
+        return $this->belongsToMany('App\Produk', 'carts', 'user_id', 'product_id')->withPivot('id');
     }
 }

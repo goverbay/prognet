@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
@@ -65,4 +63,26 @@ Route::get('/admin/produk/diskon/edit/{id}', 'Admin\DiscountController@edit');
 Route::post('/admin/produk/diskon/edit', 'Admin\DiscountController@update');
 Route::get('/admin/produk/diskon/hapus/{id}', 'Admin\DiscountController@hapus');
 Route::get('/admin/produk/review/hapus/{id}', 'Admin\ProdukController@hapus_review');
+Route::get('/admin/transaksi', 'TransactionController@adminIndex');
+Route::post('/admin/transaksi/sort', 'TransactionController@sort');
+Route::get('/admin/transaksi/detail/{id}', 'TransactionDetailController@adminIndex');
+
+//Route User
+Route::get('/produk/{id}', 'HomeController@show');
+
+Route::post('/tambah_cart', 'CartController@store');
+Route::post('/show_categori', 'HomeController@show_kategori');
+Route::get('/cart', 'CartController@show');
+Route::post('/update_qty', 'CartController@update');
+Route::post('/checkout', 'CheckoutController@index');
+Route::post('/ongkir', 'CheckoutController@submit');
+Route::get('/kota/{id}', 'CheckoutController@getCities');
+Route::post('/beli', 'TransactionController@store');
+Route::get('/transaksi/{id}', 'TransactionController@index');
+Route::get('/transaksi/detail/{id}', 'TransactionDetailController@index');
+Route::post('/transaksi/detail/status', 'TransactionDetailController@membatalkanPesanan');
+Route::post('/transaksi/detail/proof', 'TransactionDetailController@uploadProof');
+Route::post('/transaksi/detail/review', 'ProductReviewController@store');
+Route::post('/respon', 'ResponseController@store');
+Route::post('/edit/review', 'ProductReviewController@update');
 

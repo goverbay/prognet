@@ -52,6 +52,7 @@
                                 document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
                 </a>
+              
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
@@ -215,8 +216,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/tables/basic-table.html">
-                <span class="menu-title">Tables</span>
+              <a class="nav-link" href="/admin/transaksi">
+                <span class="menu-title">Transaksi</span>
                 <i class="mdi mdi-table-large menu-icon"></i>
               </a>
             </li>
@@ -273,5 +274,21 @@
       <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{asset('/assets/admin/assets/vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{asset('/assets/admin/assets/vendors/chart.js/Chart.min.js')}}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{asset('/assets/admin/assets/js/off-canvas.js')}}"></script>
+    <script src="{{asset('/assets/admin/assets/js/hoverable-collapse.js')}}"></script>
+    <script src="{{asset('/assets/admin/assets/js/js/misc.js')}}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{{asset('/assets/admin/assets/js/dashboard.js')}}"></script>
+    <script src="{{asset('/assets/admin/assets/js/todolist.js')}}"></script>
+    <!-- End custom js for this page -->
+    
 </body>
 </html>
