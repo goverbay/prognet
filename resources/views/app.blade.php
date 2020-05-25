@@ -67,6 +67,33 @@
                       <input type="submit"  class="dropdown-item waves-effect waves-light" value="Logout"></span>
                     </div>
                   </form>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                    <i class="fa fa-bell blue-text"><span class="badge danger-color" id="jumlahcart">{{Auth::user()->unReadNotifications->count()}}</span></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                    <h6 class="p-3 mb-0"><a href="/notif">Show All Notifications</a></h6>
+                    <div class="dropdown-divider"></div>
+                        @foreach (auth()->user()->unReadNotifications as $notification)
+                          <div class="preview-thumbnail">
+                            <div class="preview-icon bg-warning">
+                              <i class="mdi mdi-settings"></i>
+                            </div>
+                          </div>
+                        @if ($notification->type != "App\Notifications\NotifyUserRespon")
+                          <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                              <a class="text-decoration-none text-black" href="/transaksi/detail/{{$notification->data['notrans']}}/{{$notification->id}}"><h6  class="preview-subject font-weight-normal mb-1"> {{$notification->data['content']}} {{$notification->data['notrans']}} {{$notification->data['status']}}</h6></a>
+                          </div>
+                          <div class="dropdown-divider"></div>
+                        @else 
+                        <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                              <a class="text-decoration-none text-black" href="/produk/{{$notification->data['noprod']}}/{{$notification->id}}"><h6  class="preview-subject font-weight-normal mb-1"> {{$notification->data['content']}} {{$notification->data['status']}}</h6></a>
+                          </div>
+                          <div class="dropdown-divider"></div>
+                          @endif
+                        @endforeach
+                  </div>
                 </li>  
               @endif
           </ul>

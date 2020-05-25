@@ -109,39 +109,35 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                <i id="lonceng" class="mdi mdi-bell-outline"></i>
-                {{-- @if (!is_null(Auth::guard('admin')->user()) && Auth::guard('admin')->user()->unreadNotifications->count())
-                    <span class="count-symbol bg-danger"></span>
-                @endif --}}
+                <i class="mdi mdi-bell-outline"></i>
+                @if (Auth::guard('admin')->user()->unReadNotifications->count() > 0 )
+                  <span class="count-symbol bg-danger"></span>
+                @endif
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                <h6 class="p-3 mb-0">Notifications</h6>
+                <h6 class="p-3 mb-0"><a href="/admin/notif">Show All Notifications</a></h6>
                 <div class="dropdown-divider"></div>
-                {{-- @foreach (Auth::guard('admin')->user()->notifications as $item)
-                @php
-                          $title = explode("\\", $item->type);
-                          $title = array_pop($title);
-                          $data = json_decode(json_encode($item->data),true);
-                          
-                      @endphp --}}
-                    <a class="dropdown-item preview-item" href="/admin/transaksi/detail/">
-                      <div class="preview-thumbnail">
-                        <div class="preview-icon bg-success">
-                          <i class="mdi mdi-calendar"></i>
-                        </div>
-                      </div>
-                      <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                        <h6 class="preview-subject font-weight-normal mb-1">title put here</h6>
-                        <p class="text-gray ellipsis mb-0">  Telah melakukan Checkout </p>
-                      </div>
-                    </a>
+                @if(!is_null(Auth::guard('admin')->user()->Notifications))
+                @foreach (Auth::guard('admin')->user()->unReadNotifications as $notification)
+                  @if ($notification->type != "App\Notifications\NotifyAdminReview")
                     <div class="dropdown-divider"></div>
-                {{-- @endforeach --}}
-                
-                
-                <div class="dropdown-divider"></div>
-                <h6 class="p-3 mb-0 text-center">See all notifications</h6>
-              </div>
+                      <a class="dropdown-item preview-item">
+                        <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                          <a class="text-decoration-none text-black" href="/admin/transaksi/detail/{{$notification->data['notrans']}}/{{$notification->id}}"><p  class="preview-subject font-weight-normal mb-1"> {{$notification->data['content']}} {{$notification->data['name']}}</p></a>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                      </a>
+                  @else
+                    <div class="dropdown-divider"></div>
+                      <a class="dropdown-item preview-item">
+                        <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                          <a class="text-decoration-none text-black" href="/admin/produk/show/{{$notification->data['noprod']}}/{{$notification->id}}"><p  class="preview-subject font-weight-normal mb-1"> {{$notification->data['content']}} {{$notification->data['name']}}</p></a>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                      </a>
+                  @endif
+                @endforeach
+                @endif
             </li>
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">

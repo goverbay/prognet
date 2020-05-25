@@ -23,6 +23,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/login/admin', 'Admin\Auth\LoginController@showLoginForm');
 Route::post('/login/admin', 'Admin\Auth\LoginController@adminLogin');
+Route::get('/register', 'Auth\RegisterController@showRegisterForm')->name('register');
+
+Route::get('/admin/notif', 'HomeController@ShowAdminNotification');
+Route::get('/admin/mark/{id}', 'HomeController@MarkAdminNotification');
+Route::get('/admin/read', 'NotifyController@baca');
 
 Route::get('/admin/home', 'Admin\AdminController@index')->middleware('admin');
 Route::get('/register/admin', 'Auth\RegisterController@showAdminRegister')->middleware('admin');
@@ -66,9 +71,14 @@ Route::get('/admin/produk/review/hapus/{id}', 'Admin\ProdukController@hapus_revi
 Route::get('/admin/transaksi', 'TransactionController@adminIndex');
 Route::post('/admin/transaksi/sort', 'TransactionController@sort');
 Route::get('/admin/transaksi/detail/{id}', 'TransactionDetailController@adminIndex');
+route::get('/admin/transaksi/detail/{id}/{idnot}', 'TransactionDetailController@adminNotifyIndex');
 
 //Route User
-Route::get('/produk/{id}', 'HomeController@show');
+Route::get('/produk/{id}', 'HomeController@show')->middleware('verified');
+Route::get('/produk/{id}/{id2}', 'HomeController@NotifyShow')->middleware('verified');
+Route::get('/notif', 'HomeController@ShowNotification');
+Route::get('/mark/{id}', 'HomeController@MarkNotification');
+Route::get('/baca', 'NotifyUser@Read');
 
 Route::post('/tambah_cart', 'CartController@store');
 Route::post('/show_categori', 'HomeController@show_kategori');

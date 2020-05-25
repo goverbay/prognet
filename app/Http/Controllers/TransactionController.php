@@ -12,6 +12,7 @@ use App\Produk;
 use App\User;
 use App\Admin;
 use App\Notifications\Pemesanan;
+use App\Notifications\NotifyAdminTransaction;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
@@ -81,7 +82,12 @@ class TransactionController extends Controller
                 $item->save();
             }
         }
-
+        $notrans = transaction::where('id',$transaksi->id)->first();
+        $no=auth()->user()->id;
+        $admin = Admin::all();
+        $user = User::where('id',$no)->first();
+        foreach($admin as $ad)
+            $ad->notify(new NotifyAdminTransaction($user, $notrans->id));
         return redirect('/transaksi/'.$request->user_id);
     }
 

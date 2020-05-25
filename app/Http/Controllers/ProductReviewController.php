@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\product_review;
 use App\Produk;
 use App\admin;
+use App\User;
+use App\transaction;
+use App\Notifications\NotifyAdminReview;
 
 class ProductReviewController extends Controller
 {
@@ -18,6 +21,12 @@ class ProductReviewController extends Controller
 
         $review->save();
 
+        $noprod = produk::where('id',$request->product_id)->first();
+        $no=auth()->user()->id;
+        $admin = Admin::all();
+        $user = User::where('id',$no)->first();
+        foreach($admin as $ad)
+            $ad->notify(new NotifyAdminReview($user, $noprod->id));
         
         $reviews = product_review::where('product_id', '=', $request->product_id)->get();
         $meanRate = 0;
