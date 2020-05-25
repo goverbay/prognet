@@ -2,11 +2,12 @@
 
 namespace App;
 
+use App\user_notification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -50,6 +51,6 @@ class User extends Authenticatable
     }
 
     public function notifications(){
-        return $this->morphMany(user_notification::class, 'notifiable')->orderBy('created_at', 'desc');
+            return $this->morphMany(user_notification::class, 'notifiable')->orderBy('created_at','desc');
     }
 }

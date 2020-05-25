@@ -13,7 +13,7 @@ use Kavist\RajaOngkir\Facades\RajaOngkir;
 class CheckoutController extends Controller
 {
     public function index(Request $request){
-        if(!is_null($request->product_id)){
+        if(!empty($request->product_id)){
             $cart = Produk::with('product_image', 'discount')->where('id', '=', $request->product_id)->get();
             $subtotal = $request->subtotal;
             $weight = $request->weight;
@@ -55,7 +55,7 @@ class CheckoutController extends Controller
     public function submit(Request $request){
         // dd($request->courier);
         $kurir = kurir::where('id','=',$request->courier)->first();
-        if(is_null($request->destination)){
+        if(empty($request->destination)){
             $city = City::where('province_id','=',$request->prov)->first();
             $request->destination = $city->city_id;
         }

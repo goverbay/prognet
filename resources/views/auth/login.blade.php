@@ -1,79 +1,92 @@
-@extends('layouts.app')
+@extends('app')
+@section('css')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+            <link rel="stylesheet" href="../assets/css/flaticon.css">
+            <link rel="stylesheet" href="../assets/css/slicknav.css">
+            <link rel="stylesheet" href="../assets/css/animate.min.css">
+            <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+            <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+            <link rel="stylesheet" href="../assets/css/themify-icons.css">
+            <link rel="stylesheet" href="../assets/css/slick.css">
+            <link rel="stylesheet" href="../assets/css/nice-select.css">
+            <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+@endsection
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+@section('konten')
+    <!--================login_part Area =================-->
+    <section class="login_part">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6">
+                    <div class="login_part_text text-center">
+                        <div class="login_part_text_iner">
+                            <h2>New to our Shop?</h2>
+                            <p>Join Us NOW !</p>
+                            <a href="/register" class="btn_3">Create an Account</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="login_part_form">
+                        <div class="login_part_form_iner">
+                        <br><br><br><br><br><br><br><br><br><br><br>
+                            <h1>Welcome Back ! <br>
+                                Please Sign in now</h1>
+                            <form class="row contact_form" action="{{ route('login') }}" method="post" >
+                            @csrf
+                                <div class="col-md-12 form-group p_star">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
+                                        placeholder="e-mail">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"
+                                        placeholder="Password">
+                                
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
+                                
+                                </div>
+                                
+                                <div class="col-md-12 form-group">
+                                    <div class="creat_account d-flex align-items-center">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
+                                    </div>
+                                    <button type="submit" value="submit" class="btn_3">
+                                        log in
+                                    </button>
+                                    @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
-                                @endif
-                            </div>
+                                    @endif
+                                    <br><br><br><br><br><br><br>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+    <!--================login_part end =================-->
+@endsection
+@section('javascript')
 @endsection

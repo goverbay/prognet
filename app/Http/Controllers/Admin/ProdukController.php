@@ -10,6 +10,8 @@ use App\product_category_detail as pcd;
 use App\product_image as pi;
 use App\product_review as review;
 use App\response;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProdukController extends Controller
 {
@@ -136,6 +138,24 @@ class ProdukController extends Controller
 
         $respon = response::all();
         
+        return view('auth.admin.produk_show',['produk' => $produk, 'tgl_diskon' => $tgl_diskon, 'respon' => $respon]);
+    }
+
+    public function NotifyShow($id, $id2){
+        $produk = Produk::with('product_image','product_category_detail','category','discount', 'product_review')->where('id','=',$id)->first();
+        if($produk->discount->count()){
+            
+            $diskon = $produk->discount->sortByDesc('id');
+            foreach($diskon as $item){
+                $tgl_diskon = $item;
+                break;
+            }
+        }else{
+            $tgl_diskon = null;
+        }
+
+        $respon = response::all();
+        Auth::guard('admin')->user()->unReadNotifications->where('id', $id2)->markAsRead();
         return view('auth.admin.produk_show',['produk' => $produk, 'tgl_diskon' => $tgl_diskon, 'respon' => $respon]);
     }
 

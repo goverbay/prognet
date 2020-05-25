@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Database\Eloquent\Model;
 
 class admin_notification extends DatabaseNotification
 {
-    protected $table = 'admin_notifications';
+    protected $table='admin_notifications';
 }

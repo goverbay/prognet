@@ -245,7 +245,7 @@
                   {{-- @php
                       dd(Auth::user()->id);
                   @endphp --}}
-                  <h5 class="user-name font-weight-bold">{{$item->user->name}} @if (!is_null(Auth::user()) && Auth::user()->id == $item->user_id)
+                  <h5 class="user-name font-weight-bold">{{$item->user->name}} @if (Auth::user()->id == $item->user_id)
                     <button class="edit"  style="background-color: transparent" data-toggle="modal" data-target="#modalEditReview"><i class="fas fa-pencil-alt prefix"></i></button>
                   @endif</h5>
 
