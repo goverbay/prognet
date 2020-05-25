@@ -15,32 +15,32 @@
                             <th>Time</th>
                             <th>Action</th>
                         </tr>
-                        if(!is_null(auth()->user()->Notifications))
-                        @foreach (auth()->user()->Notifications as $notification)
-                            @if ($notification->type != "App\Notifications\NotifyUserRespon" && isset($notification->read_at) )
-                                <tr>
-                                    <td>{{$notification->data['content']}} {{$notification->data['notrans']}} {{$notification->data['status']}}</td>
-                                    <td>{{$notification->created_at}}</td>
-                                </tr>
-                            @elseif($notification->type != "App\Notifications\NotifyUserRespon" && !isset($notification->read_at))
-                                <tr>
-                                    <td>{{$notification->data['content']}} {{$notification->data['notrans']}} {{$notification->data['status']}}</td>
-                                    <td>{{$notification->created_at}}</td>
-                                    <td><a href='/mark/{{$notification->id}}'>Mark As Read</a></td>
-                                </tr>
-                            @elseif($notification->type = "App\Notifications\NotifyUserRespon" && !isset($notification->read_at) )
-                                <tr>
-                                    <td>{{$notification->data['content']}} {{$notification->data['status']}}</td>
-                                    <td>{{$notification->created_at}}</td>
-                                    <td><a href='/mark/{{$notification->id}}'>Mark As Read</a></td>
-                                <tr>
-                            @elseif($notification->type = "App\Notifications\NotifyUserRespon" && isset($notification->read_at) )
-                                <tr>
-                                    <td>{{$notification->data['content']}} {{$notification->data['status']}}</td>
-                                    <td>{{$notification->created_at}}</td>
-                                <tr>
-                            @endif
-                        @endforeach
+                        @if (!is_null(auth()->user()->Notifications))
+                            @foreach (auth()->user()->Notifications as $notification)
+                                @if ($notification->type != "App\Notifications\NotifyUserRespon" && isset($notification->read_at) )
+                                    <tr>
+                                        <td>{{$notification->data['content']}} {{$notification->data['notrans']}} {{$notification->data['status']}}</td>
+                                        <td>{{$notification->created_at}}</td>
+                                    </tr>
+                                @elseif($notification->type != "App\Notifications\NotifyUserRespon" && !isset($notification->read_at))
+                                    <tr>
+                                        <td>{{$notification->data['content']}} {{$notification->data['notrans']}} {{$notification->data['status']}}</td>
+                                        <td>{{$notification->created_at}}</td>
+                                        <td><a href='/mark/{{$notification->id}}'>Mark As Read</a></td>
+                                    </tr>
+                                @elseif($notification->type = "App\Notifications\NotifyUserRespon" && !isset($notification->read_at) )
+                                    <tr>
+                                        <td>{{$notification->data['content']}} {{$notification->data['status']}}</td>
+                                        <td>{{$notification->created_at}}</td>
+                                        <td><a href='/mark/{{$notification->id}}'>Mark As Read</a></td>
+                                    <tr>
+                                @elseif($notification->type = "App\Notifications\NotifyUserRespon" && isset($notification->read_at) )
+                                    <tr>
+                                        <td>{{$notification->data['content']}} {{$notification->data['status']}}</td>
+                                        <td>{{$notification->created_at}}</td>
+                                    <tr>
+                                @endif
+                            @endforeach
                         @endif
                         <tr>
                             <td></td>
