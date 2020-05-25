@@ -131,8 +131,8 @@
                         </div>
                       </div>
                       <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                        <h6 class="preview-subject font-weight-normal mb-1">{{$title}}</h6>
-                        <p class="text-gray ellipsis mb-0"> {{$data['user']}} Telah melakukan Checkout </p>
+                        <h6 class="preview-subject font-weight-normal mb-1">title put here</h6>
+                        <p class="text-gray ellipsis mb-0">  Telah melakukan Checkout </p>
                       </div>
                     </a>
                     <div class="dropdown-divider"></div>
@@ -175,19 +175,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Basic UI Elements</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-              </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="/admin/produk">
                 <span class="menu-title">Produk</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
@@ -212,23 +199,6 @@
                 <i class="mdi mdi-table-large menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-                <span class="menu-title">Sample Pages</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-medical-bag menu-icon"></i>
-              </a>
-              <div class="collapse" id="general-pages">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                </ul>
-              </div>
-            </li>
-            
           </ul>
         </nav>
         <!-- partial -->
