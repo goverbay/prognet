@@ -29,4 +29,8 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function notifications(){
+        return $this->morphMany(admin_notification::class, 'notifiable')->orderBy('created_at', 'desc');
+    }
 }

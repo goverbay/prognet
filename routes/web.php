@@ -85,4 +85,9 @@ Route::post('/transaksi/detail/proof', 'TransactionDetailController@uploadProof'
 Route::post('/transaksi/detail/review', 'ProductReviewController@store');
 Route::post('/respon', 'ResponseController@store');
 Route::post('/edit/review', 'ProductReviewController@update');
+Route::post('/read-notif', 'ProductReviewController@readNotif');
+Route::post('/report-bulan', 'TransactionController@filterBulan');
+Route::post('/report-tahun', 'TransactionController@filterTahun');
+Route::post('/grafik', 'TransactionController@grafik');
+
 

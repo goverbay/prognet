@@ -1,12 +1,51 @@
 @extends('auth.admin.app')
+
 @push('script')
-<script>
-    </script>    
+    <link href="https://canvasjs.com/assets/css/jquery-ui.1.11.2.min.css" rel="stylesheet" />
+
+    {{-- <script>
+        window.onload = function () {
+        
+        // Construct options first and then pass it as a parameter
+        var options1 = {
+            animationEnabled: true,
+            title: {
+                text: "Chart inside a jQuery Resizable Element"
+            },
+            data: [{
+                type: "column", //change it to line, area, bar, pie, etc
+                legendText: "Try Resizing with the handle to the bottom right",
+                showInLegend: true,
+                dataPoints: [
+                    { y: 10 },
+                    { y: 6 },
+                    { y: 14 },
+                    { y: 12 },
+                    { y: 19 },
+                    { y: 14 },
+                    { y: 26 },
+                    { y: 10 },
+                    { y: 22 }
+                    ]
+                }]
+        };
+        
+        $("#resizable").resizable({
+            create: function (event, ui) {
+                //Create chart.
+                $("#chartContainer1").CanvasJSChart(options1);
+            },
+            resize: function (event, ui) {
+                //Update chart size according to its container size.
+                $("#chartContainer1").CanvasJSChart().render();
+            }
+        });
+        
+        }
+        </script> --}}
 @endpush
+
 @section('konten')
-{{-- @php
-    dd($bulan);
-@endphp --}}
 <input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}">
 <div class="row">
     <div class="col-md-6 stretch-card grid-margin">
@@ -69,7 +108,7 @@
           @php
               setlocale(LC_MONETARY,"id_ID");
           @endphp
-          <h2 class="mb-2">Jumlah Transaksi <span><strong id="total">{{$status['total']}}</strong></span></h2>
+          <h2 class="mb-2">Jumlah Transaksi <span><strong id="total">{{$transaksi->count()}}</strong></span></h2>
           <p>Unverified Transaction <span> <strong id="unverified">{{$status['unverified']}}</strong></span></p>
           <p>Expired Transaction <span><strong id="expired">{{$status['expired']}}</strong></span></p>
           <p>Canceled Transaction <span><strong id="canceled">{{$status['canceled']}}</strong></span></p>
@@ -118,83 +157,20 @@
       </div>
     </div>
   </div>
-  @for ($i = 1; $i <= 12; $i++)
-      <input type="hidden" id='bulan{{$i}}' value="{{$bulan[$i]}}">
-  @endfor
-    <div class="d-flex flex-row bd-highlight mb-3">
-        <div class="col-md-3 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    
-                        <h4 class="card-title">Transaction Type</h4>
-                        <br>
-                        <div class="btn-group-vertical">
-                            <button class="btn btn-success status" id="all">All</button>
-                            <button class="btn btn-success status" id="unverified">Unverivied</button>
-                            <button class="btn btn-success status" id="expired">Expired</button>
-                            <button class="btn btn-success status" id="verified">Verified</button>
-                            <button class="btn btn-success status" id="delivered">Delivered</button>
-                            <button class="btn btn-success status" id="success">Success</button>
-                            <button class="btn btn-success status" id="canceled">Cancceled</button>
-                        </div>
-                </div> 
-            </div>
-         </div>   
-         <div class="col-md-9 grid-margin stretch-card"> 
-             <div class="card">
-                <div class="card-body">
-                    <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
-                </div>
-            </div> 
-        </div> 
-    </div>
 
-@endsection
-@push('scriptbody')
-<script>
-    window.onload = function () {
-    
-    //Better to construct options first and then pass it as a parameter
-    
-    
-    var options = {
-        axisX: {
-            interval:1,
-            labelMaxWidth: 180,           
-            labelAngle: -45, //90,
-            labelFontFamily:"verdana0"
-        },
-        title: {
-            text: "Grafik Jumlah Transaksi Perbulan {{date('Y')}}"              
-        },
-        data: [              
-        {
-            // Change type to "doughnut", "line", "splineArea", etc.
-            type: "column",
-            dataPoints: [
-                { label: "Januari",  y: parseInt($('#bulan1').val())},
-                { label: "Februari", y: parseInt($('#bulan2').val())},
-                { label: "Maret", y: parseInt($('#bulan3').val())},
-                { label: "April", y: parseInt($('#bulan4').val())},
-                { label: "Mei",  y: parseInt($('#bulan5').val())},
-                { label: "Juni",  y: parseInt($('#bulan6').val())},
-                { label: "Juli",  y: parseInt($('#bulan7').val())},
-                { label: "Agustus", y: parseInt($('#bulan8').val())},
-                { label: "September", y: parseInt($('#bulan9').val())},
-                { label: "Oktober",  y: parseInt($('#bulan10').val())},
-                { label: "November",  y: parseInt($('#bulan11').val())},
-                { label: "Desember",  y: parseInt($('#bulan12').val())},
-            ]
-        }
-        ]
-    };
-    
-    $("#chartContainer").CanvasJSChart(options);
-    }
-</script>    
+  <div id="resizable" style="height: 370px;border:1px solid gray;">
+	<div id="chartContainer1" style="height: 100%; width: 100%;"></div>
+</div>
 
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+  @endsection
+
+  
+  <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+  <script src="https://canvasjs.com/assets/script/jquery-ui.1.11.2.min.js"></script>
+  <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+    <script type="text/javascript" src="{{asset('/assets/js/jquery-3.4.1.min.js')}}"></script>
     <script>
     function formatRupiah(angka, prefix){
 			var number_string = angka.toString(),
@@ -212,47 +188,7 @@
 			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
 	}
-
-    function creteChart(tahun, ttlTahun, judul = ''){
-        var options = {
-                            axisX: {
-                                interval:1,
-                                labelMaxWidth: 180,           
-                                labelAngle: -45, //90,
-                                labelFontFamily:"verdana0"
-                            },
-                            title: {
-                                text: "Grafik Jumlah Transaksi "+judul+" Perbulan "+ttlTahun              
-                            },
-                            data: [              
-                            {
-                                // Change type to "doughnut", "line", "splineArea", etc.
-                                type: "column",
-                                dataPoints: [
-                                    { label: "Januari",  y: tahun[1]},
-                                    { label: "Februari", y: tahun[2]},
-                                    { label: "Maret", y: tahun[3]},
-                                    { label: "April", y: tahun[4]},
-                                    { label: "Mei",  y: tahun[5]},
-                                    { label: "Juni",  y: tahun[6]},
-                                    { label: "Juli",  y: tahun[7]},
-                                    { label: "Agustus", y: tahun[8]},
-                                    { label: "September", y: tahun[9]},
-                                    { label: "Oktober",  y: tahun[10]},
-                                    { label: "November",  y: tahun[11]},
-                                    { label: "Desember",  y: tahun[12]},
-                                    
-                                ]
-                            }
-                            ]
-                        };
-                        
-                        $("#chartContainer").CanvasJSChart(options);
-
-    }
-
       jQuery(document).ready(function(e){
-          console.log($('#bulan1').val())
           jQuery('#bulan').change(function(e){
                 jQuery.ajax({
                     url: "{{url('/report-bulan')}}",
@@ -306,59 +242,11 @@
                         $('#success-tahun').text(result.data['success']);
                         var uang_tahun = formatRupiah(result.data['harga'],'Rp ');
                         $('#harga-tahun').text(uang_tahun);
-                        
-                        creteChart(result.tahun, $('#tahun').val());
                     }
-
                 });
           });
 
-          $(".status").click(function(e){
-            var index = $(".status").index(this);
-            var myStatus = '';
-            switch(index){
-                case 0:
-                    myStatus = 'all';
-                    break;
-                case 1:
-                    myStatus = 'unverified';
-                    break;
-                case 2:
-                    myStatus = 'expired';
-                    break;
-                case 3:
-                    myStatus = 'verified';
-                    break;
-                case 4:
-                    myStatus = 'delivered';
-                    break;
-                case 5:
-                    myStatus = 'success';
-                    break;
-                case 6:
-                    myStatus = 'canceled';
-                    break;
 
-            }
-
-            
-            jQuery.ajax({
-                url: "{{url('/grafik')}}",
-                method: 'post',
-                data: {
-                    _token: $('#signup-token').val(),
-                    status: myStatus,
-                    tahun: $('#tahun').val(),
-                },
-                success: function(result){
-                    creteChart(result.grafik, $('#tahun').val(), myStatus);
-                }
-            });
-        });
 
       });
     </script>
-
-@endpush
-
-

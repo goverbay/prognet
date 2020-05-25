@@ -147,7 +147,7 @@
 
           }
 
-          console.log(myStatus);
+          
         jQuery.ajax({
               url: "{{url('/admin/transaksi/sort')}}",
               method: 'post',

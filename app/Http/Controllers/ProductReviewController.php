@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\product_review;
 use App\Produk;
+use App\admin;
 
 class ProductReviewController extends Controller
 {
@@ -57,4 +58,12 @@ class ProductReviewController extends Controller
 
         return redirect('/produk/'.$review->product_id);
     }
+
+    // public function readNotif(Request $request){
+    //     $admin = Admin::find($request->id);
+
+    //     $admin->unreadNotifications->markAsRead();
+
+    //     return response()->json(['success' => 'berhasil merubah notif menjadi terbaca']);
+    // }
 }

@@ -17,11 +17,13 @@
     <link rel="stylesheet" href="{{ asset('/assets/admin/assets/css/style.css') }}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('/assets/admin/assets/images/favicon.png') }}" />
+    @stack('script')
     
 </head>
 <body>
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
+      <input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}">
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
           <a class="navbar-brand brand-logo" href="index.html"><img src="{{asset('/assets/admin/assets/images/logo.svg')}}" alt="logo" /></a>
@@ -107,47 +109,36 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                <i class="mdi mdi-bell-outline"></i>
-                <span class="count-symbol bg-danger"></span>
+                <i id="lonceng" class="mdi mdi-bell-outline"></i>
+                {{-- @if (!is_null(Auth::guard('admin')->user()) && Auth::guard('admin')->user()->unreadNotifications->count())
+                    <span class="count-symbol bg-danger"></span>
+                @endif --}}
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                 <h6 class="p-3 mb-0">Notifications</h6>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-success">
-                      <i class="mdi mdi-calendar"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
-                    <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today </p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-warning">
-                      <i class="mdi mdi-settings"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
-                    <p class="text-gray ellipsis mb-0"> Update dashboard </p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-info">
-                      <i class="mdi mdi-link-variant"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
-                    <p class="text-gray ellipsis mb-0"> New admin wow! </p>
-                  </div>
-                </a>
+                {{-- @foreach (Auth::guard('admin')->user()->notifications as $item)
+                @php
+                          $title = explode("\\", $item->type);
+                          $title = array_pop($title);
+                          $data = json_decode(json_encode($item->data),true);
+                          
+                      @endphp --}}
+                    <a class="dropdown-item preview-item" href="/admin/transaksi/detail/">
+                      <div class="preview-thumbnail">
+                        <div class="preview-icon bg-success">
+                          <i class="mdi mdi-calendar"></i>
+                        </div>
+                      </div>
+                      <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                        <h6 class="preview-subject font-weight-normal mb-1">{{$title}}</h6>
+                        <p class="text-gray ellipsis mb-0"> {{$data['user']}} Telah melakukan Checkout </p>
+                      </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                {{-- @endforeach --}}
+                
+                
                 <div class="dropdown-divider"></div>
                 <h6 class="p-3 mb-0 text-center">See all notifications</h6>
               </div>
@@ -283,12 +274,30 @@
     <!-- inject:js -->
     <script src="{{asset('/assets/admin/assets/js/off-canvas.js')}}"></script>
     <script src="{{asset('/assets/admin/assets/js/hoverable-collapse.js')}}"></script>
-    <script src="{{asset('/assets/admin/assets/js/js/misc.js')}}"></script>
+    {{-- <script src="{{asset('/assets/admin/assets/js/js/misc.js')}}"></script> --}}
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="{{asset('/assets/admin/assets/js/dashboard.js')}}"></script>
     <script src="{{asset('/assets/admin/assets/js/todolist.js')}}"></script>
     <!-- End custom js for this page -->
-    
+    <script type="text/javascript" src="{{asset('/assets/js/jquery-3.4.1.min.js')}}"></script>
+    {{-- <script>
+      jQuery(document).ready(function(e){
+          jQuery('#lonceng').click(function(e){
+                jQuery.ajax({
+                    url: "{{url('/read-notif')}}",
+                    method: 'post',
+                    data: {
+                        _token: $('#signup-token').val(),
+                        id: 1,
+                    },
+                    success: function(result){
+                        console.log(result.success);
+                    }
+                });
+          });
+      });
+    </script> --}}
+    @stack('scriptbody')
 </body>
 </html>

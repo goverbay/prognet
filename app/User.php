@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function product_cart(){
         return $this->belongsToMany('App\Produk', 'carts', 'user_id', 'product_id')->withPivot('id');
     }
+
+    public function notifications(){
+        return $this->morphMany(user_notification::class, 'notifiable')->orderBy('created_at', 'desc');
+    }
 }
