@@ -60,8 +60,8 @@ class HomeController extends Controller
                 $persen = $d;
                 break;
             }
-
-            if($persen->end >= date('Y-m-d')){
+            
+            if($persen->end >= date('Y-m-d') && $persen->start < date('Y-m-d')){
                return $hasil = $harga-($harga*$persen->percentage/100);
             }else{
                 return $hasil = 0;
